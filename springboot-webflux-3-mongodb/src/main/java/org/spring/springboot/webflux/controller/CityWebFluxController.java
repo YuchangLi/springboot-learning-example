@@ -1,5 +1,7 @@
 package org.spring.springboot.webflux.controller;
 
+import java.lang.System.Logger.Level;
+
 import org.spring.springboot.domain.City;
 import org.spring.springboot.handler.CityHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,9 @@ public class CityWebFluxController {
 
     @GetMapping(value = "/{id}")
     public Mono<City> findCityById(@PathVariable("id") Long id) {
-        return cityHandler.findCityById(id);
+      System.Logger logger = System.getLogger(getClass().getName()); 
+      logger.log(Level.INFO, "findCityById id = "+ id);
+      return cityHandler.findCityById(id);
     }
 
     @GetMapping()
@@ -34,8 +38,17 @@ public class CityWebFluxController {
         return cityHandler.modifyCity(city);
     }
 
+    @DeleteMapping(value = "/deleteCityWithId/{id}")
+    public Mono<Long> deleteCityWithId(@PathVariable("id") Long id) {
+      System.Logger logger = System.getLogger(getClass().getName()); 
+      logger.log(Level.INFO, "deleteCityWithId id = "+id);
+      return cityHandler.deleteCityWithId(id);
+    }
+    
     @DeleteMapping(value = "/{id}")
-    public Mono<Long> deleteCity(@PathVariable("id") Long id) {
-        return cityHandler.deleteCity(id);
+    public Mono<Void> deleteCity(@PathVariable("id") Long id) {
+      System.Logger logger = System.getLogger(getClass().getName()); 
+      logger.log(Level.INFO, "deleteCity id = "+id);
+      return cityHandler.deleteCity(id);
     }
 }

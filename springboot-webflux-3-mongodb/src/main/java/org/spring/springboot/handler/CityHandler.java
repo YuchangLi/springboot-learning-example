@@ -36,8 +36,13 @@ public class CityHandler {
         return cityRepository.save(city);
     }
 
-    public Mono<Long> deleteCity(Long id) {
+//  原方法带返回id
+    public Mono<Long> deleteCityWithId(Long id) {
         cityRepository.deleteById(id);
         return Mono.create(cityMonoSink -> cityMonoSink.success(id));
+    }
+    
+    public Mono<Void> deleteCity(Long id) {
+      return cityRepository.deleteById(id);
     }
 }
