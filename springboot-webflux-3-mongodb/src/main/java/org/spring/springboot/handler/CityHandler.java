@@ -38,8 +38,9 @@ public class CityHandler {
 
 //  原方法带返回id
     public Mono<Long> deleteCityWithId(Long id) {
-        cityRepository.deleteById(id);
-        return Mono.create(cityMonoSink -> cityMonoSink.success(id));
+//      Mono<Void> result = cityRepository.deleteById(id);
+//      return  Mono.create(cityMonoSink -> cityMonoSink.success(id));
+        return  cityRepository.deleteById(id).flatMap(o -> Mono.create(cityMonoSink -> cityMonoSink.success(id)));
     }
     
     public Mono<Void> deleteCity(Long id) {
